@@ -2,24 +2,34 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Игра «Открой сундук»</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Открой сундук и получи промокод</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Открой один из сундуков и получи промокод!</h1>
+  <h1>Выбери один из сундуков и получи промокод!</h1>
+
   <div class="chests-container">
+    <!-- Сундук №1 -->
     <div class="chest" data-chest="0">
-      <img src="closed-chest.png" alt="Сундук" />
+      <img src="closed-chest.png" class="chest-img chest-closed" alt="Закрытый сундук">
+      <img src="open-chest.png" class="chest-img chest-open" alt="Открытый сундук">
     </div>
+
+    <!-- Сундук №2 -->
     <div class="chest" data-chest="1">
-      <img src="closed-chest.png" alt="Сундук" />
+      <img src="closed-chest.png" class="chest-img chest-closed" alt="Закрытый сундук">
+      <img src="open-chest.png" class="chest-img chest-open" alt="Открытый сундук">
     </div>
+
+    <!-- Сундук №3 -->
     <div class="chest" data-chest="2">
-      <img src="closed-chest.png" alt="Сундук" />
+      <img src="closed-chest.png" class="chest-img chest-closed" alt="Закрытый сундук">
+      <img src="open-chest.png" class="chest-img chest-open" alt="Открытый сундук">
     </div>
   </div>
 
+  <!-- Блок для отображения промокода -->
   <div id="result" class="hidden">
     <p id="code-text"></p>
     <button id="reset-button">Попробовать снова</button>
