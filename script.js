@@ -1,49 +1,48 @@
-// 1. Задаём массив (или объект) с промокодами
-// Вы можете редактировать промокоды в этом массиве по своему усмотрению.
-// Допустим, у нас есть три кода - по одному на каждый сундук:
+// Массив промокодов (три кода для трёх сундуков)
 const promoCodes = [
-  "PROMO10",    // промокод в первом сундуке
-  "PROMO20",    // промокод во втором сундуке
-  "PROMO30",    // промокод в третьем сундуке
+  "PROMO10",
+  "PROMO20",
+  "PROMO30"
 ];
 
-// 2. Находим нужные элементы на странице
+// Находим все сундуки и элементы для результата
 const chests = document.querySelectorAll(".chest");
 const resultContainer = document.getElementById("result");
 const codeText = document.getElementById("code-text");
 const resetButton = document.getElementById("reset-button");
 
-// 3. Функция для обработки клика на сундук
+// Обработчик клика на сундук
 function handleChestClick(event) {
-  // Получаем индекс сундука (data-chest="0", "1" или "2")
-  const chestIndex = event.currentTarget.getAttribute("data-chest");
+  const chest = event.currentTarget;               // весь блок .chest
+  const chestIndex = chest.getAttribute("data-chest"); // "0", "1" или "2"
+  const selectedPromo = promoCodes[chestIndex];    // берем нужный промокод
 
-  // Получаем соответствующий промокод
-  const selectedPromo = promoCodes[chestIndex];
+  // Добавляем класс opened, чтобы запустить CSS-анимацию
+  chest.classList.add("opened");
 
-  // Отображаем в блоке "result"
-  codeText.textContent = `Ваш промокод: ${selectedPromo}`;
-  resultContainer.classList.remove("hidden");
+  // Ждем 0.8 секунды, пока сундук «откроется», затем показываем промокод
+  setTimeout(() => {
+    codeText.textContent = `Ваш промокод: ${selectedPromo}`;
+    resultContainer.classList.remove("hidden");
+  }, 800);
 
-  // После выбора сундуков можно спрятать все сундуки или "задизейблить" их
-  chests.forEach(chest => {
-    chest.removeEventListener("click", handleChestClick);
-  });
+  // Отключаем клики на все сундуки, чтобы нельзя было открыть несколько
+  chests.forEach(ch => ch.removeEventListener("click", handleChestClick));
 }
 
-// 4. Навешиваем обработчики кликов на все сундуки
-chests.forEach(chest => {
-  chest.addEventListener("click", handleChestClick);
-});
+// Назначаем обработчик каждому сундуку
+chests.forEach(ch => ch.addEventListener("click", handleChestClick));
 
-// 5. Кнопка "Попробовать снова"
+// Кнопка "Попробовать снова" — сбрасываем всё
 resetButton.addEventListener("click", () => {
-  // Скрываем блок с промокодом
+  // Прячем блок с промокодом
   resultContainer.classList.add("hidden");
   codeText.textContent = "";
 
-  // Восстанавливаем возможность кликать на сундуки
+  // Снимаем класс "opened" со всех сундуков
   chests.forEach(chest => {
+    chest.classList.remove("opened");
+    // Возвращаем возможность кликать
     chest.addEventListener("click", handleChestClick);
   });
 });
